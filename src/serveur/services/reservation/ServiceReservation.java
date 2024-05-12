@@ -2,7 +2,7 @@ package serveur.services.reservation;
 
 import serveur.abonne.Abonne;
 import serveur.mediatheque.Mediatheque;
-import serveur.document.IDocument;
+import serveur.documents.IDocument;
 import service.Service;
 
 import java.io.BufferedReader;
@@ -31,7 +31,7 @@ public class ServiceReservation extends Service {
                     try {
                         document.reservation(abonne);
                         out.println("Réservation " + super.getNumero() + " --> Le document <<" + line + ">> est réservé pour 1h30");
-                    } catch (ReservationException e) {
+                    } catch (ReservationException | InterruptedException e) {
                         out.println("Réservation " + super.getNumero() + " <-- Le document <<" + line + ">> ne peut pas être réservé");
                     }
                 }

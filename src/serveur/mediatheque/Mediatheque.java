@@ -1,7 +1,7 @@
 package serveur.mediatheque;
 
 import serveur.abonne.Abonne;
-import serveur.document.IDocument;
+import serveur.documents.IDocument;
 
 import java.util.HashMap;
 import java.util.Map;
