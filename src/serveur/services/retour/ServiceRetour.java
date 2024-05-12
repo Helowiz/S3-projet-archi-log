@@ -1,4 +1,10 @@
 package serveur.services.retour;
 
-public class ServiceRetour {
+import service.Service;
+
+public class ServiceRetour extends Service {
+    @Override
+    public void run() {
+
+    }
 }

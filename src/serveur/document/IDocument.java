@@ -1,4 +1,4 @@
-package serveur.services.document;
+package serveur.document;
 
 import serveur.abonne.Abonne;
 import serveur.services.emprunt.EmpruntException;

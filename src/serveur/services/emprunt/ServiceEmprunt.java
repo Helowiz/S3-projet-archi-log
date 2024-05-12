@@ -1,4 +1,10 @@
 package serveur.services.emprunt;
 
-public class ServiceEmprunt {
+import service.Service;
+
+public class ServiceEmprunt extends Service {
+    @Override
+    public void run() {
+
+    }
 }
