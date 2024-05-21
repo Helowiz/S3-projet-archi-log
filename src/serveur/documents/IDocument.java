@@ -1,4 +1,4 @@
-package serveur.document;
+package serveur.documents;
 
 import serveur.abonne.Abonne;
 import serveur.services.emprunt.EmpruntException;
@@ -15,5 +15,5 @@ public interface IDocument {
     void emprunt(Abonne ab) throws EmpruntException;
 
     /* retour d’un document ou annulation d‘une réservation */
-    void retour()throws RetourException;
+    void retour() throws RetourException;
 }

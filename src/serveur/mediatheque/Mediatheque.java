@@ -1,7 +1,7 @@
 package serveur.mediatheque;
 
 import serveur.abonne.Abonne;
-import serveur.document.IDocument;
+import serveur.documents.IDocument;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +16,14 @@ public final class Mediatheque {
 
     public static Mediatheque getInstance() {
         return _instance;
+    }
+
+    public boolean documentExiste(IDocument document){
+        return documents.get(document.numero()) != null;
+    }
+
+    public boolean abonneExiste(Abonne abonne){
+        return abonnes.get(abonne.numero()) != null;
     }
 
     public void setDocuments(Map<Integer, IDocument> documents){

@@ -1,4 +1,4 @@
 package serveur.services.emprunt;
 
-public class EmpruntException extends Exception{
+public class EmpruntException extends Exception {
 }
