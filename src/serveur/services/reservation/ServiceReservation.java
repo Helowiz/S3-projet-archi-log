@@ -32,7 +32,7 @@ public class ServiceReservation extends Service {
                     try {
                         document.reservation(abonne);
                         out.println("Réservation " + super.getNumero() + " --> Le document <<" + line + ">> est réservé");
-                    } catch (ReservationException e) {
+                    } catch (ReservationException | interruptedExceptione) {
                         out.println("Réservation " + super.getNumero() + " <-- Le document <<" + line + ">> ne peut pas être réservé");
                     }
                 }
