@@ -5,7 +5,7 @@ import serveur.services.emprunt.EmpruntException;
 import serveur.services.reservation.ReservationException;
 import serveur.services.retour.RetourException;
 
-public interface IDocument {
+public interface Document {
     int numero();
     String titre();
     Statuts statut();

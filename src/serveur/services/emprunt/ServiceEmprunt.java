@@ -2,7 +2,7 @@ package serveur.services.emprunt;
 
 import bserveur.Service;
 import serveur.abonne.Abonne;
-import serveur.documents.IDocument;
+import serveur.documents.Document;
 import serveur.mediatheque.Mediatheque;
 
 import java.io.BufferedReader;
@@ -28,7 +28,7 @@ public class ServiceEmprunt extends Service {
                 if(!mediatheque.documentExiste(Integer.parseInt(line))) {
                     out.println("Emprunt " + super.getNumero() + " <-- Numéro de document <<" + line + ">> inexistant");
                 } else {
-                    IDocument document = mediatheque.getUnDocumentParNumero(Integer.parseInt(line));
+                    Document document = mediatheque.getUnDocumentParNumero(Integer.parseInt(line));
                     synchronized (document){
                         try {
                             document.emprunt(abonne);

@@ -1,8 +1,7 @@
 package serveur.services.retour;
 
 import bserveur.Service;
-import serveur.abonne.Abonne;
-import serveur.documents.IDocument;
+import serveur.documents.Document;
 import serveur.mediatheque.Mediatheque;
 
 import java.io.BufferedReader;
@@ -22,7 +21,7 @@ public class ServiceRetour extends Service {
             if(!mediatheque.documentExiste(Integer.parseInt(line))) {
                 out.println("Retour " + super.getNumero() + " <-- Numéro de document <<" + line + ">> inexistant");
             } else {
-                IDocument document = mediatheque.getUnDocumentParNumero(Integer.parseInt(line));
+                Document document = mediatheque.getUnDocumentParNumero(Integer.parseInt(line));
                 synchronized (document){
                     try {
                         document.retour();

@@ -5,7 +5,7 @@ import serveur.services.emprunt.EmpruntException;
 import serveur.services.reservation.ReservationException;
 import serveur.services.retour.RetourException;
 
-public class DVD implements IDocument {
+public class DVD implements Document {
 
     int id;
     String label;

@@ -1,6 +1,6 @@
 package serveur.abonne;
 
-import serveur.documents.IDocument;
+import serveur.documents.Document;
 import serveur.documents.Statuts;
 
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Abonne {
     private static int cpt = 1;
     private final int numero;
-    ArrayList<IDocument> documents;
+    ArrayList<Document> documents;
 
     public Abonne(int numero) {
         this.numero = numero;
@@ -22,11 +22,11 @@ public class Abonne {
         return numero;
     }
 
-    public void ajouterDocument(IDocument document){
+    public void ajouterDocument(Document document){
         documents.add(document);
     }
 
-    public boolean aReserve(IDocument document) {
+    public boolean aReserve(Document document) {
         return documents.contains(document) && document.statut() == Statuts.RESERVATION;
     }
 }

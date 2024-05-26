@@ -2,7 +2,7 @@ package serveur.services.reservation;
 
 import serveur.abonne.Abonne;
 import serveur.mediatheque.Mediatheque;
-import serveur.documents.IDocument;
+import serveur.documents.Document;
 import bserveur.Service;
 
 import java.io.BufferedReader;
@@ -28,7 +28,7 @@ public class ServiceReservation extends Service {
                 if(!mediatheque.documentExiste(Integer.parseInt(line))) {
                     out.println("Réservation " + super.getNumero() + " <-- Numéro de document <<" + line + ">> inexistant");
                 } else {
-                    IDocument document = mediatheque.getUnDocumentParNumero(Integer.parseInt(line));
+                    Document document = mediatheque.getUnDocumentParNumero(Integer.parseInt(line));
                     synchronized (document){
                         try {
                             document.reservation(abonne);
