@@ -8,6 +8,7 @@ import bserveur.Serveur;
 import serveur.abonne.Abonne;
 import serveur.documents.DVD;
 import serveur.documents.Document;
+import serveur.mediatheque.GestionBD;
 import serveur.mediatheque.Mediatheque;
 import serveur.services.emprunt.ServiceEmprunt;
 import serveur.services.reservation.ServiceReservation;
@@ -28,6 +29,8 @@ public class AppliServeur {
     }
 
     private static void initMediatheque() {
+        GestionBD.connexionBD();
+        /*
         Document dvd1 = new DVD(1, "La Cite de la peur");
         Document dvd2 = new DVD(2, "Titanic");
         Document dvd3 = new DVD(3, "Blanche-Neige et les septs nains");
@@ -47,5 +50,6 @@ public class AppliServeur {
         abonnes.put(2, ab2);
         abonnes.put(3, ab3);
         Mediatheque.getInstance().ajouterDesAbonnes(abonnes);
+        */
     }
 }

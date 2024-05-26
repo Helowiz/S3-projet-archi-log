@@ -6,22 +6,25 @@ import serveur.services.reservation.ReservationException;
 import serveur.services.retour.RetourException;
 
 public class DVD implements Document {
+    private int numero;
+    private String titre;
+    private boolean adulte;
+    private Abonne ab;
+    private Statuts statut;
 
-    int id;
-    String label;
-    Statuts statut;
-
-    public DVD(int id, String label) {
-        this.id = id;
-        this.label = label;
+    public DVD(int numero, String titre, boolean adulte, Abonne ab) {
+        this.numero = numero;
+        this.titre = titre;
+        this.adulte = adulte;
+        this.ab = ab;
         this.statut = Statuts.DISPONIBLE;
     }
 
     public int numero() {
-        return id;
+        return numero;
     }
     public String titre() {
-        return label;
+        return titre;
     }
 
     public Statuts statut() {
