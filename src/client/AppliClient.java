@@ -23,27 +23,24 @@ public class AppliClient {
         String service = "";
         while (port == 0) {
             Scanner sc = new Scanner(System.in);
-            System.out.println("Tapez le numero correspondant au service");
-            System.out.print("Les differents services disponibles :\n" +
-                    "Reservation : 1\n" +
+            System.out.println("Tapez le numéro correspondant au service");
+            System.out.print("Les différents services disponibles :\n" +
+                    "Réservation : 1\n" +
                     "Emprunt : 2\n" +
                     "Retour : 3\n");
             System.out.print("-> ");
             switch(sc.nextInt()){
                 case 1:
                     port = PORT_SERVICE_RESERVATION;
-                    service = "reservation";
                     break;
                 case 2:
                     port = PORT_SERVICE_EMPRUNT;
-                    service = "emprunt";
                     break;
                 case 3:
                     port = PORT_SERVICE_RETOUR;
-                    service = "retour";
                     break;
                 default:
-                    System.err.println("Ce n'est pas un caractere corespondants a un service");
+                    System.err.println("Ce n'est pas un caractère correspondant à un service");
             }
         }
         Socket socket = null;

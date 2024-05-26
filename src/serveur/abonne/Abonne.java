@@ -7,11 +7,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Abonne {
-    private static int cpt = 1;
     private final int numero;
-    private String nom;
-    private String prenom;
-    private Date dateDeNaissance;
+    private final String nom;
+    private final String prenom;
+    private final Date dateDeNaissance;
     ArrayList<Document> documents;
 
     public Abonne(int numero, String nom, String prenom, Date dateDeNaissance) {
@@ -23,13 +22,5 @@ public class Abonne {
 
     public int numero(){
         return numero;
-    }
-
-    public void ajouterDocument(Document document){
-        documents.add(document);
-    }
-
-    public boolean aReserve(Document document) {
-        return documents.contains(document) && document.statut() == Statuts.RESERVATION;
     }
 }

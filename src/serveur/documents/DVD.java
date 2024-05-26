@@ -6,9 +6,9 @@ import serveur.services.reservation.ReservationException;
 import serveur.services.retour.RetourException;
 
 public class DVD implements Document {
-    private int numero;
-    private String titre;
-    private boolean adulte;
+    private final int numero;
+    private final String titre;
+    private final boolean adulte;
     private Abonne ab;
     private Statuts statut;
 
@@ -23,29 +23,22 @@ public class DVD implements Document {
     public int numero() {
         return numero;
     }
-    public String titre() {
-        return titre;
-    }
-
-    public Statuts statut() {
-        return statut;
-    }
 
     public void reservation(Abonne ab) throws ReservationException {
         if(this.statut == Statuts.RESERVATION || this.statut == Statuts.EMPRUNT){
             throw new ReservationException();
         }
         this.statut = Statuts.RESERVATION;
-        ab.ajouterDocument(this);
+        this.ab = ab;
     }
 
     public void emprunt(Abonne ab) throws EmpruntException {
-        if(this.statut != Statuts.DISPONIBLE || ab.aReserve(this)){
+        if(!(this.statut == Statuts.DISPONIBLE || (this.statut == Statuts.RESERVATION && this.ab == ab))){
             throw new EmpruntException();
         }
-        if (!ab.aReserve(this)) {
-            this.statut = Statuts.EMPRUNT;
-            ab.ajouterDocument(this);
+        this.statut = Statuts.EMPRUNT;
+        if (this.ab == null) {
+            this.ab = ab;
         }
     }
 
@@ -54,5 +47,6 @@ public class DVD implements Document {
             throw new RetourException();
         }
         this.statut = Statuts.DISPONIBLE;
+        this.ab = null;
     }
 }

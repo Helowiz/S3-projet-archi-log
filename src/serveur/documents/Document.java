@@ -7,8 +7,6 @@ import serveur.services.retour.RetourException;
 
 public interface Document {
     int numero();
-    String titre();
-    Statuts statut();
 
     /* pre ni réservé ni emprunté */
     void reservation(Abonne abonne) throws ReservationException, InterruptedException;

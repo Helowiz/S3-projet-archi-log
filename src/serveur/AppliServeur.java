@@ -24,7 +24,7 @@ public class AppliServeur {
         try {
             new Thread(new Serveur(ServiceReservation.class, PORT_RESERVATION)).start();
         } catch (IOException e) {
-            System.err.println("Probleme lors de la creation du serveur : " +  e);
+            System.err.println("Problème lors de la création du serveur : " +  e);
         }
     }
 
