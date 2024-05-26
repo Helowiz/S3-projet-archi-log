@@ -19,21 +19,23 @@ public class ServiceEmprunt extends Service {
             Mediatheque mediatheque = Mediatheque.getInstance();
             out.println("******** Connexion au service d'emprunt " + super.getNumero() + " ********##Saisir le numéro d'abonné :");
             String line = in.readLine();
-            Abonne abonne = mediatheque.getUnAbonneParNumero(Integer.parseInt(line));
-            if(mediatheque.abonneExiste(abonne)) {
+            if(!mediatheque.abonneExiste(Integer.parseInt(line))) {
                 out.println("Emprunt " + super.getNumero() + " <-- Numéro d'abonné <<" + line + ">> inexistant");
             } else {
+                Abonne abonne = mediatheque.getUnAbonneParNumero(Integer.parseInt(line));
                 out.println("Emprunt " + super.getNumero() + " <-- Saisir le numéro du document :");
                 line = in.readLine();
-                IDocument document = mediatheque.getUnDocumentParNumero(Integer.parseInt(line));
-                if(mediatheque.documentExiste(document)) {
+                if(!mediatheque.documentExiste(Integer.parseInt(line))) {
                     out.println("Emprunt " + super.getNumero() + " <-- Numéro de document <<" + line + ">> inexistant");
                 } else {
-                    try {
-                        document.emprunt(abonne);
-                        out.println("Emprunt " + super.getNumero() + " --> Le document <<" + line + ">> est emprunté");
-                    } catch (EmpruntException e) {
-                        out.println("Emprunt " + super.getNumero() + " <-- Le document <<" + line + ">> ne peut pas être emprunté");
+                    IDocument document = mediatheque.getUnDocumentParNumero(Integer.parseInt(line));
+                    synchronized (document){
+                        try {
+                            document.emprunt(abonne);
+                            out.println("Emprunt " + super.getNumero() + " --> Le document <<" + line + ">> est emprunté");
+                        } catch (EmpruntException e) {
+                            out.println("Emprunt " + super.getNumero() + " <-- Le document <<" + line + ">> ne peut pas être emprunté");
+                        }
                     }
                 }
             }

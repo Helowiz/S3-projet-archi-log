@@ -18,12 +18,12 @@ public final class Mediatheque {
         return _instance;
     }
 
-    public boolean documentExiste(IDocument document){
-        return documents.get(document.numero()) != null;
+    public boolean documentExiste(int numero){
+        return documents.get(numero) != null;
     }
 
-    public boolean abonneExiste(Abonne abonne){
-        return abonnes.get(abonne.numero()) != null;
+    public boolean abonneExiste(int numero){
+        return abonnes.get(numero) != null;
     }
 
     public void setDocuments(Map<Integer, IDocument> documents){

@@ -19,15 +19,17 @@ public class ServiceRetour extends Service {
             Mediatheque mediatheque = Mediatheque.getInstance();
             out.println("******** Connexion au service de retour " + super.getNumero() + " ********##Saisir le numéro du document :");
             String line = in.readLine();
-            IDocument document = mediatheque.getUnDocumentParNumero(Integer.parseInt(line));
-            if(mediatheque.documentExiste(document)) {
+            if(!mediatheque.documentExiste(Integer.parseInt(line))) {
                 out.println("Retour " + super.getNumero() + " <-- Numéro de document <<" + line + ">> inexistant");
             } else {
-                try {
-                    document.retour();
-                    out.println("Retour " + super.getNumero() + " --> Le document <<" + line + ">> est retourné");
-                } catch (RetourException e) {
-                    out.println("Retour " + super.getNumero() + " <-- Le document <<" + line + ">> ne peut pas être retourné");
+                IDocument document = mediatheque.getUnDocumentParNumero(Integer.parseInt(line));
+                synchronized (document){
+                    try {
+                        document.retour();
+                        out.println("Retour " + super.getNumero() + " --> Le document <<" + line + ">> est retourné");
+                    } catch (RetourException e) {
+                        out.println("Retour " + super.getNumero() + " <-- Le document <<" + line + ">> ne peut pas être retourné");
+                    }
                 }
             }
             out.println("******** Déconnexion du service de retour " + super.getNumero() + " ********");
