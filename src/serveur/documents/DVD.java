@@ -29,13 +29,17 @@ public class DVD implements Document {
     }
 
     public void reservation(Abonne ab) throws ReservationException {
-        assert(this.statut == Statuts.RESERVATION || this.statut == Statuts.EMPRUNT);
+        if(this.statut == Statuts.RESERVATION || this.statut == Statuts.EMPRUNT){
+            throw new ReservationException();
+        }
         this.statut = Statuts.RESERVATION;
         ab.ajouterDocument(this);
     }
 
     public void emprunt(Abonne ab) throws EmpruntException {
-        assert(this.statut != Statuts.DISPONIBLE || ab.aReserve(this));
+        if(this.statut != Statuts.DISPONIBLE || ab.aReserve(this)){
+            throw new EmpruntException();
+        }
         if (!ab.aReserve(this)) {
             this.statut = Statuts.EMPRUNT;
             ab.ajouterDocument(this);
@@ -43,7 +47,9 @@ public class DVD implements Document {
     }
 
     public void retour() throws RetourException {
-        assert(this.statut != Statuts.EMPRUNT);
-        this.statut = Statuts.RETOUR;
+        if(this.statut != Statuts.EMPRUNT){
+            throw new RetourException();
+        }
+        this.statut = Statuts.DISPONIBLE;
     }
 }
