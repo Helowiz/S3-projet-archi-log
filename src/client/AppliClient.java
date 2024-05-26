@@ -8,13 +8,16 @@ import java.net.Socket;
 import java.util.Objects;
 import java.util.Scanner;
 
+import static serveur.bttp2.Codage.coder;
+import static serveur.bttp2.Codage.decoder;
+
 public class AppliClient {
     private static int PORT_SERVICE_RESERVATION = 3000;
     private static int PORT_SERVICE_EMPRUNT = 4000;
     private static int PORT_SERVICE_RETOUR = 5000;
     private static String HOST = "localhost";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         int port = 0;
         String service = "";
@@ -53,32 +56,24 @@ public class AppliClient {
             BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("******** Connexion au serveur " + socket.getInetAddress() + ":" + socket.getPort() +  " ********" );
 
-            String line;
+            String line = "";
+            int cmp = 0;
+            while(!line.equals("exit") || cmp == 2){
+                line = decoder(sin.readLine()); //viens du serveur
+                System.out.println(line);
 
-            //a generaliser en mode ping pong
-            //Demande du numero d'abonne
-            line = sin.readLine(); //viens du serveur
+                System.out.print("-> ");
+                line = coder(clavier.readLine()); //viens de l'user
+                sout.println(line);
+                ++cmp;
+            }
+            line = decoder(sin.readLine()); //viens du serveur
             System.out.println(line);
-
-            line = sin.readLine(); //viens du serveur
-            System.out.println(line);
-
-            System.out.println("-> ");
-            line = clavier.readLine(); //viens de l'user
-            sout.println(line); //envoie au serveur
-
-            line = sin.readLine(); //viens du serveur
-            System.out.println(line);
-
-            System.out.println("-> ");
-            line = clavier.readLine(); //viens de l'user
-            sout.println(line); //envoie au serveur
-
-
             socket.close();
         }
         catch (IOException e) { System.err.println("Fin du service" + e); }
-        try { if (socket != null) socket.close(); }
-        catch (IOException e2) { }
+        try { if (socket != null) socket.close(); } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

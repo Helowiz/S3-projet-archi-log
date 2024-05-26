@@ -12,7 +12,10 @@ public final class Mediatheque {
 
     private static final Mediatheque _instance = new Mediatheque();
 
-    private Mediatheque() {}
+    private Mediatheque() {
+        documents = new HashMap<>();
+        abonnes = new HashMap<>();
+    }
 
     public static Mediatheque getInstance() {
         return _instance;
