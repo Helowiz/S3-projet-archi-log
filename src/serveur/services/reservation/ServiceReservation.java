@@ -2,6 +2,7 @@ package serveur.services.reservation;
 
 import bserveur.Service;
 import serveur.abonne.Abonne;
+import serveur.mediatheque.GestionBD;
 import serveur.mediatheque.Mediatheque;
 import serveur.documents.Document;
 
@@ -43,6 +44,7 @@ public class ServiceReservation extends Service {
                     synchronized (document){
                         try {
                             document.reservation(abonne);
+                            GestionBD.sauvegardeBD(document,abonne);
                             out.println("Réservation " + super.getNumero() + " --> Le document <<" + line + ">> est réservé" + fin);
                         } catch (ReservationException | InterruptedException e) {
                             out.println("Réservation " + super.getNumero() + " <-- Le document <<" + line + ">> ne peut pas être réservé" + fin);

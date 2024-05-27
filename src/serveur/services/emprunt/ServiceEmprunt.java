@@ -3,6 +3,7 @@ package serveur.services.emprunt;
 import bserveur.Service;
 import serveur.abonne.Abonne;
 import serveur.documents.Document;
+import serveur.mediatheque.GestionBD;
 import serveur.mediatheque.Mediatheque;
 
 import java.io.BufferedReader;
@@ -32,6 +33,7 @@ public class ServiceEmprunt extends Service {
                     synchronized (document){
                         try {
                             document.emprunt(abonne);
+                            GestionBD.sauvegardeBD(document,abonne);
                             out.println("Emprunt " + super.getNumero() + " --> Le document <<" + line + ">> est emprunté");
                         } catch (EmpruntException e) {
                             out.println("Emprunt " + super.getNumero() + " <-- Le document <<" + line + ">> ne peut pas être emprunté");

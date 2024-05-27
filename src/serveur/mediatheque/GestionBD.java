@@ -58,4 +58,30 @@ public final class GestionBD {
             throw new RuntimeException(e);
         }
     }
+
+    public static void sauvegardeBD(Document doc, Abonne ab){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+        try {
+            Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/mediatheque", "root", "mariadb");
+
+            String sql = "UPDATE DVD SET Emprunteur = ?;";
+            PreparedStatement reqSauv = connect.prepareStatement(sql);
+            if(ab == null){
+                reqSauv.setString(1, "NULL");
+            } else {
+                reqSauv.setInt(1, ab.numero());
+            }
+            reqSauv.executeUpdate();
+
+            connect.close();
+            reqSauv.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

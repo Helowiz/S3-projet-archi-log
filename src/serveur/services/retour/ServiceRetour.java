@@ -2,6 +2,7 @@ package serveur.services.retour;
 
 import bserveur.Service;
 import serveur.documents.Document;
+import serveur.mediatheque.GestionBD;
 import serveur.mediatheque.Mediatheque;
 
 import java.io.BufferedReader;
@@ -25,6 +26,7 @@ public class ServiceRetour extends Service {
                 synchronized (document){
                     try {
                         document.retour();
+                        GestionBD.sauvegardeBD(document,null);
                         out.println("Retour " + super.getNumero() + " --> Le document <<" + line + ">> est retourné");
                     } catch (RetourException e) {
                         out.println("Retour " + super.getNumero() + " <-- Le document <<" + line + ">> ne peut pas être retourné");

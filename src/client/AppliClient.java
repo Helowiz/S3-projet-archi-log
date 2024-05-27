@@ -20,7 +20,6 @@ public class AppliClient {
     public static void main(String[] args) throws IOException {
 
         int port = 0;
-        String service = "";
         while (port == 0) {
             Scanner sc = new Scanner(System.in);
             System.out.println("Tapez le numéro correspondant au service");
