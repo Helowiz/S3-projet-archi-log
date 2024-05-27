@@ -68,13 +68,14 @@ public final class GestionBD {
         try {
             Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/mediatheque", "root", "mariadb");
 
-            String sql = "UPDATE DVD SET Emprunteur = ?;";
+            String sql = "UPDATE DVD SET Emprunteur = ? WHERE NumDVD = ?;";
             PreparedStatement reqSauv = connect.prepareStatement(sql);
             if(ab == null){
                 reqSauv.setString(1, "NULL");
             } else {
                 reqSauv.setInt(1, ab.numero());
             }
+            reqSauv.setInt(2, doc.numero());
             reqSauv.executeUpdate();
 
             connect.close();
