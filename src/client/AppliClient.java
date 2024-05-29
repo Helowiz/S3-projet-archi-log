@@ -24,6 +24,7 @@ public class AppliClient {
 
         String line = "";
         Socket socket = null;
+        
         while (!line.trim().equalsIgnoreCase("exit")){
             int port = 0;
             int cmp = 0;
