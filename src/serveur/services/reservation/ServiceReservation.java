@@ -33,7 +33,7 @@ public class ServiceReservation extends Service {
             String line = in.readLine();
             if(!mediatheque.abonneExiste(Integer.parseInt(line))) {
                 out.println(coder("Réservation " + super.getNumero() + " <-- Numéro d'abonné <<" + line + ">> inexistant" + fin));
-                super.getSocket().close();
+                finalize();
             } else {
                 Abonne abonne = mediatheque.getUnAbonneParNumero(Integer.parseInt(line));
                 out.println("Réservation " + super.getNumero() + " <-- Saisir le numéro du document :");
@@ -52,16 +52,15 @@ public class ServiceReservation extends Service {
                     }
                 }
             }
-        } catch (IOException e) {
+            finalize();
+        } catch (Throwable e) {
             System.err.println("Problème de connexion au service de réservation : " + e.getMessage());
         }
     }
 
     @Override
-    protected void finalize() {
-        try {
-            super.getSocket().close();
-            System.out.println("******** Service de reservation " + super.getNumero() + " eteinction ********");
-        } catch (IOException e) {}
+    protected void finalize() throws Throwable {
+        super.finalize();
+        System.out.println("******** Service de Réservation " + super.getNumero() + " extinction ********");
     }
 }

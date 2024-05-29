@@ -32,7 +32,7 @@ public class ServiceRetour extends Service {
             String line = in.readLine();
             if(!mediatheque.documentExiste(Integer.parseInt(line))) {
                 out.println(coder("Retour " + super.getNumero() + " <-- Numéro de document <<" + line + ">> inexistant" + fin));
-                super.getSocket().close();
+                finalize();
             } else {
                 Document document = mediatheque.getUnDocumentParNumero(Integer.parseInt(line));
                 synchronized (document){
@@ -46,16 +46,15 @@ public class ServiceRetour extends Service {
                 }
             }
             out.println("******** Déconnexion du service de retour " + super.getNumero() + " ********");
-            super.getSocket().close();
-        } catch (IOException e) {
+            finalize();
+        } catch (Throwable e) {
             System.err.println("Problème de connexion au service de retour : " + e.getMessage());
         }
     }
     @Override
-    protected void finalize() {
-        try {
-            super.getSocket().close();
-            System.out.println("******** Service de retour " + super.getNumero() + " eteinction ********");
-        } catch (IOException e) {}
+    protected void finalize() throws Throwable {
+        super.finalize();
+        System.out.println("******** Service de retour " + super.getNumero() + " eteinction ********");
+
     }
 }
