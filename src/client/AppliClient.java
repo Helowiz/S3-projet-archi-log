@@ -19,56 +19,62 @@ public class AppliClient {
 
     public static void main(String[] args) throws IOException {
 
-        int port = 0;
-        while (port == 0) {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Tapez le numéro correspondant au service");
-            System.out.print("Les différents services disponibles :\n" +
-                    "Réservation : 1\n" +
-                    "Emprunt : 2\n" +
-                    "Retour : 3\n");
-            System.out.print("-> ");
-            switch(sc.nextInt()){
-                case 1:
-                    port = PORT_SERVICE_RESERVATION;
-                    break;
-                case 2:
-                    port = PORT_SERVICE_EMPRUNT;
-                    break;
-                case 3:
-                    port = PORT_SERVICE_RETOUR;
-                    break;
-                default:
-                    System.err.println("Ce n'est pas un caractère correspondant à un service");
-            }
-        }
+        String line = "";
         Socket socket = null;
-        try {
-            socket = new Socket(HOST, port);
+        while (!line.equals("exit")){
+            int port = 0;
+            while (port == 0) {
+                Scanner sc = new Scanner(System.in);
+                System.out.println("Tapez le numéro correspondant au service");
+                System.out.print("Les différents services disponibles :\n" +
+                        "Réservation : 1\n" +
+                        "Emprunt : 2\n" +
+                        "Retour : 3\n");
+                System.out.print("-> ");
+                switch (sc.nextInt()) {
+                    case 1:
+                        port = PORT_SERVICE_RESERVATION;
+                        break;
+                    case 2:
+                        port = PORT_SERVICE_EMPRUNT;
+                        break;
+                    case 3:
+                        port = PORT_SERVICE_RETOUR;
+                        break;
+                    default:
+                        System.err.println("Ce n'est pas un caractère correspondant à un service");
+                }
+            }
 
-            BufferedReader sin = new BufferedReader (new InputStreamReader(socket.getInputStream()));
-            PrintWriter sout = new PrintWriter (socket.getOutputStream(),true);
-            // Informe l'utilisateur de la connection
-            BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("******** Connexion au serveur " + socket.getInetAddress() + ":" + socket.getPort() +  " ********" );
+            try {
+                socket = new Socket(HOST, port);
+                System.out.println("connecté au port :" + port);
+                BufferedReader sin = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                PrintWriter sout = new PrintWriter(socket.getOutputStream(), true);
+                // Informe l'utilisateur de la connection
+                BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in));
+                System.out.println("******** Connexion au serveur " + socket.getInetAddress() + ":" + socket.getPort() + " ********");
 
-            String line = "";
-            int cmp = 0;
-            while(!line.equals("exit") || cmp == 2){
+
+                int cmp = 0;
+                while (cmp < 2) { //!line.equals("exit")
+                    line = decoder(sin.readLine()); //viens du serveur
+                    System.out.println(line);
+
+                    System.out.print("-> ");
+                    line = coder(clavier.readLine()); //viens de l'user
+                    sout.println(line);
+                    ++cmp;
+                }
                 line = decoder(sin.readLine()); //viens du serveur
                 System.out.println(line);
-
-                System.out.print("-> ");
-                line = coder(clavier.readLine()); //viens de l'user
-                sout.println(line);
-                ++cmp;
+            } catch (IOException e) {
+                System.err.println("Fin du service" + e);
             }
-            line = decoder(sin.readLine()); //viens du serveur
-            System.out.println(line);
-            socket.close();
         }
-        catch (IOException e) { System.err.println("Fin du service" + e); }
-        try { if (socket != null) socket.close(); } catch (IOException e) {
+        try {
+            if (socket != null) socket.close();
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
