@@ -1,20 +1,16 @@
 package client;
 
-import serveur.abonne.AbonneException;
-import serveur.documents.DocumentException;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Objects;
 import java.util.Scanner;
 
 import static serveur.bttp2.Codage.coder;
 import static serveur.bttp2.Codage.decoder;
 
-public class AppliClient {
+public class AppliClient2 {
     private static int PORT_SERVICE_RESERVATION = 3000;
     private static int PORT_SERVICE_EMPRUNT = 4000;
     private static int PORT_SERVICE_RETOUR = 5000;

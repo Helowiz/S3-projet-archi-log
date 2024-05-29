@@ -28,26 +28,49 @@ public class DVD implements Document {
         if(this.statut == Statuts.RESERVATION || this.statut == Statuts.EMPRUNT){
             throw new ReservationException(this.numero);
         }
-        this.statut = Statuts.RESERVATION;
-        this.ab = ab;
+
+        synchronized (this){
+
+            this.statut = Statuts.RESERVATION;
+            this.ab = ab;
+
+            while(this.statut == Statuts.RESERVATION){
+                try {
+                    System.out.println("début de l'attente");
+                    this.wait(100000); //10sec pour l'instant
+                    System.out.println("fin de l'attente");
+                } catch (InterruptedException _) {}
+                try {
+                    this.retour();
+                    throw new ReservationException(this.numero);
+                } catch (RetourException e) {}
+            }
+        }
     }
 
     public void emprunt(Abonne ab) throws EmpruntException {
-        if(!(this.statut == Statuts.DISPONIBLE || (this.statut == Statuts.RESERVATION && this.ab == ab))){
+
+        if(this.statut == Statuts.RESERVATION && this.ab == ab || this.statut == Statuts.DISPONIBLE){
+            synchronized (this){
+                this.statut = Statuts.EMPRUNT;
+                if (this.ab == null) {
+                    this.ab = ab;
+                }
+                this.notifyAll();
+            }
+        } else {
             throw new EmpruntException(this.numero);
-        }
-        this.statut = Statuts.EMPRUNT;
-        if (this.ab == null) {
-            this.ab = ab;
         }
     }
 
     public void retour() throws RetourException {
-
-        if(this.statut != Statuts.EMPRUNT){
+        if(this.statut == Statuts.EMPRUNT){
             throw new RetourException(this.numero);
         }
-        this.statut = Statuts.DISPONIBLE;
-        this.ab = null;
+        synchronized (this){
+            this.statut = Statuts.DISPONIBLE;
+            this.ab = null;
+            this.notifyAll();
+        }
     }
 }

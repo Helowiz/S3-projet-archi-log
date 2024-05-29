@@ -9,7 +9,7 @@ public interface Document {
     int numero();
 
     /* pre ni réservé ni emprunté */
-    void reservation(Abonne abonne) throws ReservationException, InterruptedException;
+    void reservation(Abonne abonne) throws ReservationException;
 
     /* libre ou réservé par l’abonné qui vient emprunter */
     void emprunt(Abonne ab) throws EmpruntException;
