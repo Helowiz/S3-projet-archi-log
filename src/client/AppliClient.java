@@ -23,6 +23,7 @@ public class AppliClient {
         Socket socket = null;
         while (!line.equals("exit")){
             int port = 0;
+            int cmp = 0;
             while (port == 0) {
                 Scanner sc = new Scanner(System.in);
                 System.out.println("Tapez le numéro correspondant au service");
@@ -40,6 +41,7 @@ public class AppliClient {
                         break;
                     case 3:
                         port = PORT_SERVICE_RETOUR;
+                        cmp = 1;
                         break;
                     default:
                         System.err.println("Ce n'est pas un caractère correspondant à un service");
@@ -56,7 +58,7 @@ public class AppliClient {
                 System.out.println("******** Connexion au serveur " + socket.getInetAddress() + ":" + socket.getPort() + " ********");
 
 
-                int cmp = 0;
+
                 while (cmp < 2) { //!line.equals("exit")
                     line = decoder(sin.readLine()); //viens du serveur
                     System.out.println(line);

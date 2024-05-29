@@ -33,7 +33,7 @@ public class ServiceEmprunt extends Service {
             String line = in.readLine();
             if(!mediatheque.abonneExiste(Integer.parseInt(line))) {
                 out.println(coder("Emprunt " + super.getNumero() + " <-- Numéro d'abonné <<" + line + ">> inexistant" + fin));
-                super.getSocket().close();
+                finalize();
             } else {
                 Abonne abonne = mediatheque.getUnAbonneParNumero(Integer.parseInt(line));
                 out.println("Emprunt " + super.getNumero() + " <-- Saisir le numéro du document : ");
@@ -54,17 +54,15 @@ public class ServiceEmprunt extends Service {
                 }
             }
             out.println("******** Déconnexion du service d'emprunt " + super.getNumero() + " ********");
-            super.getSocket().close();
-        } catch (IOException e) {
+            finalize();
+        } catch (Throwable e) {
             System.err.println("Problème de connexion au service d'emprunt : " + e.getMessage());
         }
     }
 
     @Override
-    protected void finalize() {
-        try {
-            super.getSocket().close();
-            System.out.println("******** Service de emprunt " + super.getNumero() + " eteinction ********");
-        } catch (IOException e) {}
+    protected void finalize() throws Throwable {
+        super.finalize();
+        System.out.println("******** Service de emprunt " + super.getNumero() + " eteinction ********");
     }
 }
