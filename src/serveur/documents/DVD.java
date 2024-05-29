@@ -39,7 +39,7 @@ public class DVD implements Document {
                     System.out.println("début de l'attente");
                     this.wait(100000); //10sec pour l'instant
                     System.out.println("fin de l'attente");
-                } catch (InterruptedException _) {}
+                } catch (InterruptedException e) {}
                 try {
                     this.retour();
                     throw new ReservationException(this.numero);
