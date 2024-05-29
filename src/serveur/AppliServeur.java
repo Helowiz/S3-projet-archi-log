@@ -1,15 +1,9 @@
 package serveur;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import bserveur.Serveur;
-import serveur.abonne.Abonne;
-import serveur.documents.DVD;
-import serveur.documents.Document;
 import serveur.mediatheque.GestionBD;
-import serveur.mediatheque.Mediatheque;
 import serveur.services.emprunt.ServiceEmprunt;
 import serveur.services.reservation.ServiceReservation;
 import serveur.services.retour.ServiceRetour;

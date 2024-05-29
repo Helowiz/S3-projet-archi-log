@@ -3,6 +3,8 @@ package serveur.mediatheque;
 import serveur.abonne.Abonne;
 import serveur.documents.DVD;
 import serveur.documents.Document;
+import serveur.documents.Statuts;
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +44,8 @@ public final class GestionBD {
                         resDVD.getInt(1),
                         resDVD.getString(2),
                         resDVD.getBoolean(3),
-                        Mediatheque.getInstance().getUnAbonneParNumero(resDVD.getInt(4))
+                        Mediatheque.getInstance().getUnAbonneParNumero(resDVD.getInt(4)),
+                        Mediatheque.getInstance().getUnAbonneParNumero(resDVD.getInt(4))==null?Statuts.DISPONIBLE:Statuts.EMPRUNT
                 );
                 documents.put(doc.numero(),doc);
             }

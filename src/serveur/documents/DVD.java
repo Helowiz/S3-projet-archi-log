@@ -12,12 +12,12 @@ public class DVD implements Document {
     private Abonne ab;
     private Statuts statut;
 
-    public DVD(int numero, String titre, boolean adulte, Abonne ab) {
+    public DVD(int numero, String titre, boolean adulte, Abonne ab, Statuts statut) {
         this.numero = numero;
         this.titre = titre;
         this.adulte = adulte;
         this.ab = ab;
-        this.statut = Statuts.DISPONIBLE;
+        this.statut = statut;
     }
 
     public int numero() {
