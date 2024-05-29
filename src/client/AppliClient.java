@@ -46,8 +46,8 @@ public class AppliClient {
         try {
             socket = new Socket(HOST, port);
 
-            BufferedReader sin = new BufferedReader (new InputStreamReader(socket.getInputStream ( )));
-            PrintWriter sout = new PrintWriter (socket.getOutputStream ( ), true);
+            BufferedReader sin = new BufferedReader (new InputStreamReader(socket.getInputStream()));
+            PrintWriter sout = new PrintWriter (socket.getOutputStream(),true);
             // Informe l'utilisateur de la connection
             BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("******** Connexion au serveur " + socket.getInetAddress() + ":" + socket.getPort() +  " ********" );
