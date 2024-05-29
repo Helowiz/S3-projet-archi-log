@@ -23,6 +23,8 @@ public class AppliServeur {
         initMediatheque();
         try {
             new Thread(new Serveur(ServiceReservation.class, PORT_RESERVATION)).start();
+            new Thread(new Serveur(ServiceEmprunt.class, PORT_EMPRUNT)).start();
+            new Thread(new Serveur(ServiceRetour.class, PORT_RETOUR)).start();
         } catch (IOException e) {
             System.err.println("Problème lors de la création du serveur : " +  e);
         }
