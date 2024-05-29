@@ -43,7 +43,9 @@ public class ServiceRetour extends Service {
                     out.println(coder("Retour " + super.getNumero() + " --> Le document <<" + line + ">> est réservé" + fin));
                 }
             } catch (DocumentException e) {
-                out.println(coder("Retour " + super.getNumero() + " <--" + e.toString() + fin));
+                out.println(coder("Retour " + super.getNumero() + " <--" + e + fin));
+            } catch (RetourException e){
+                out.println(coder("Retour " + super.getNumero() + " <--" + e + fin));
             }
             finalize();
         } catch (Throwable e) {
