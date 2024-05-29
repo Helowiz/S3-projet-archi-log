@@ -1,8 +1,11 @@
 package serveur.mediatheque;
 
 import serveur.abonne.Abonne;
+import serveur.abonne.AbonneException;
 import serveur.documents.DVD;
 import serveur.documents.Document;
+import serveur.documents.Statuts;
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,12 +40,17 @@ public final class GestionBD {
             ResultSet resDVD = reqDVD.executeQuery("SELECT * FROM DVD");
             Document doc;
             Map<Integer, Document> documents = new HashMap<>();
-            while(resDVD.next()){
+            while(resDVD.next()) {
+                Abonne abonne = null;
+                try {
+                    abonne = Mediatheque.getInstance().getUnAbonneParNumero(resDVD.getInt(4));
+                } catch (AbonneException e){}
                 doc = new DVD(
                         resDVD.getInt(1),
                         resDVD.getString(2),
                         resDVD.getBoolean(3),
-                        Mediatheque.getInstance().getUnAbonneParNumero(resDVD.getInt(4))
+                        abonne,
+                        abonne==null?Statuts.DISPONIBLE:Statuts.EMPRUNT
                 );
                 documents.put(doc.numero(),doc);
             }
@@ -71,7 +79,7 @@ public final class GestionBD {
             String sql = "UPDATE DVD SET Emprunteur = ? WHERE NumDVD = ?;";
             PreparedStatement reqSauv = connect.prepareStatement(sql);
             if(ab == null){
-                reqSauv.setString(1, "NULL");
+                reqSauv.setNull(1, Types.NULL);
             } else {
                 reqSauv.setInt(1, ab.numero());
             }
