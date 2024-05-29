@@ -2,9 +2,9 @@ package serveur.services.reservation;
 
 public class ReservationException extends Exception {
 
-    String document;
+    int document;
 
-    public ReservationException(String doc) {
+    public ReservationException(int doc) {
         this.document = doc;
     }
     @Override

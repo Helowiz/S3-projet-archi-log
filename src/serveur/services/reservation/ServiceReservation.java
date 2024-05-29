@@ -45,7 +45,6 @@ public class ServiceReservation extends Service {
                     synchronized (document){
                         try {
                             document.reservation(abonne);
-                            GestionBD.sauvegardeBD(document,abonne);
                             out.println(coder("Réservation " + super.getNumero() + " --> Le document <<" + line + ">> est réservé" + fin));
                         } catch (ReservationException | InterruptedException e) {
                             out.println(coder("Réservation " + super.getNumero() + " <-- " + e.toString() + fin));
@@ -53,7 +52,6 @@ public class ServiceReservation extends Service {
                     }
                 }
             }
-
         } catch (IOException e) {
             System.err.println("Problème de connexion au service de réservation : " + e.getMessage());
         }

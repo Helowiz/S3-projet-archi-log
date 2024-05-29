@@ -71,7 +71,7 @@ public final class GestionBD {
             String sql = "UPDATE DVD SET Emprunteur = ? WHERE NumDVD = ?;";
             PreparedStatement reqSauv = connect.prepareStatement(sql);
             if(ab == null){
-                reqSauv.setString(1, "NULL");
+                reqSauv.setNull(1, Types.NULL);
             } else {
                 reqSauv.setInt(1, ab.numero());
             }

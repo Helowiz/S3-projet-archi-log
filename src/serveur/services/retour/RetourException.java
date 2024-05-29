@@ -1,9 +1,9 @@
 package serveur.services.retour;
 
 public class RetourException extends Exception {
-    String document;
+    int document;
 
-    public RetourException(String doc) {
+    public RetourException(int doc) {
         this.document = doc;
     }
     @Override

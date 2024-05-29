@@ -48,7 +48,7 @@ public class AppliClient {
 
             try {
                 socket = new Socket(HOST, port);
-
+                System.out.println("connecté au port :" + port);
                 BufferedReader sin = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 PrintWriter sout = new PrintWriter(socket.getOutputStream(), true);
                 // Informe l'utilisateur de la connection
@@ -71,7 +71,6 @@ public class AppliClient {
             } catch (IOException e) {
                 System.err.println("Fin du service" + e);
             }
-            System.out.println("fin1 boucle");
         }
         try {
             if (socket != null) socket.close();

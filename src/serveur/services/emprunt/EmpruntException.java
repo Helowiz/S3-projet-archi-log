@@ -2,9 +2,9 @@ package serveur.services.emprunt;
 
 public class EmpruntException extends Exception {
 
-    String document;
+    int document;
 
-    public EmpruntException(String doc) {
+    public EmpruntException(int doc) {
         this.document = doc;
     }
     @Override

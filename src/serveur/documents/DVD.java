@@ -26,7 +26,7 @@ public class DVD implements Document {
 
     public void reservation(Abonne ab) throws ReservationException {
         if(this.statut == Statuts.RESERVATION || this.statut == Statuts.EMPRUNT){
-            throw new ReservationException(this.titre);
+            throw new ReservationException(this.numero);
         }
         this.statut = Statuts.RESERVATION;
         this.ab = ab;
@@ -34,7 +34,7 @@ public class DVD implements Document {
 
     public void emprunt(Abonne ab) throws EmpruntException {
         if(!(this.statut == Statuts.DISPONIBLE || (this.statut == Statuts.RESERVATION && this.ab == ab))){
-            throw new EmpruntException(this.titre);
+            throw new EmpruntException(this.numero);
         }
         this.statut = Statuts.EMPRUNT;
         if (this.ab == null) {
@@ -43,8 +43,9 @@ public class DVD implements Document {
     }
 
     public void retour() throws RetourException {
+
         if(this.statut != Statuts.EMPRUNT){
-            throw new RetourException(this.titre);
+            throw new RetourException(this.numero);
         }
         this.statut = Statuts.DISPONIBLE;
         this.ab = null;
