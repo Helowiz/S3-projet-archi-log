@@ -1,8 +1,6 @@
 package serveur.services.retour;
 
 import bserveur.Service;
-import serveur.abonne.Abonne;
-import serveur.abonne.AbonneException;
 import serveur.documents.Document;
 import serveur.documents.DocumentException;
 import serveur.mediatheque.GestionBD;
@@ -25,7 +23,7 @@ public class ServiceRetour extends Service {
 
     @Override
     public void run() {
-        System.out.println("******** Service de Retour " + super.getNumero() + " start ********");
+        System.out.println("******** Lancement du service de retour " + super.getNumero() + " ********");
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(super.getSocket().getInputStream()));
             PrintWriter out = new PrintWriter(super.getSocket().getOutputStream(), true);
@@ -55,7 +53,7 @@ public class ServiceRetour extends Service {
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
-        System.out.println("******** Service de Retour " + super.getNumero() + " stop ********");
+        System.out.println("******** Arrêt du service de retour " + super.getNumero() + " ********");
 
     }
 }

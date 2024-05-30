@@ -25,7 +25,7 @@ public class AppliClient2 {
             int cmp = 0;
             while (port == 0) {
                 Scanner sc = new Scanner(System.in);
-                System.out.println("Tapez le numéro correspondant au service");
+                System.out.println("Saisir le numéro correspondant au service");
                 System.out.print("Les différents services disponibles :\n" +
                         "Réservation : 1\n" +
                         "Emprunt : 2\n" +
@@ -43,15 +43,14 @@ public class AppliClient2 {
                         cmp = 1;
                         break;
                     default:
-                        System.err.println("Ce n'est pas un caractère correspondant à un service");
+                        System.err.println("Le numéro ne correspond à aucun service");
                 }
             }
 
             try {
                 socket = new Socket(HOST, port);
                 BufferedReader sin = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                PrintWriter sout = new PrintWriter(socket.getOutputStream(), true);
-                // Informe l'utilisateur de la connection
+                PrintWriter sout = new PrintWriter(socket.getOutputStream(),true);
                 BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in));
                 System.out.println("******** Connexion au serveur " + socket.getInetAddress() + ":" + socket.getPort() + " ********");
 
@@ -65,7 +64,7 @@ public class AppliClient2 {
 
                     System.out.println(line);
                     System.out.print("-> ");
-                    line = coder(clavier.readLine()); //viens de l'user
+                    line = coder(clavier.readLine());
                     sout.println(line);
                     ++cmp;
                 }

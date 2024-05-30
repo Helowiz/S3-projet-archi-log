@@ -46,11 +46,4 @@ public final class Mediatheque {
             return abonnes.get(numero);
         }
     }
-    public boolean documentExiste(int numero){
-        return documents.get(numero) != null;
-    }
-
-    public boolean abonneExiste(int numero){
-        return abonnes.get(numero) != null;
-    }
 }

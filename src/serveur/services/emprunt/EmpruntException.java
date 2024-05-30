@@ -1,14 +1,14 @@
 package serveur.services.emprunt;
 
 public class EmpruntException extends Exception {
+    int numDoc;
 
-    int document;
-
-    public EmpruntException(int doc) {
-        this.document = doc;
+    public EmpruntException(int numDoc) {
+        this.numDoc = numDoc;
     }
+
     @Override
     public String toString() {
-        return "Le document <<" + document + ">> ne peut pas être emprunté";
+        return "Le document <<" + numDoc + ">> ne peut pas être emprunté";
     }
 }

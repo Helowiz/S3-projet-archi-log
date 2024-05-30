@@ -1,14 +1,14 @@
 package serveur.documents;
 
 public class DocumentException extends Exception{
+    int numDoc;
 
-    int document;
-
-    public DocumentException(int doc) {
-        this.document = doc;
+    public DocumentException(int numDoc) {
+        this.numDoc = numDoc;
     }
+
     @Override
     public String toString() {
-        return "%Le document <<" + document + ">> est inexistant";
+        return "%Le document <<" + numDoc + ">> n'existe pas";
     }
 }

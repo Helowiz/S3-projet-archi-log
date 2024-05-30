@@ -1,9 +1,5 @@
 package serveur.abonne;
 
-import serveur.documents.Document;
-import serveur.documents.Statuts;
-
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Abonne {
@@ -11,7 +7,6 @@ public class Abonne {
     private final String nom;
     private final String prenom;
     private final Date dateDeNaissance;
-    ArrayList<Document> documents;
 
     public Abonne(int numero, String nom, String prenom, Date dateDeNaissance) {
         this.numero = numero;

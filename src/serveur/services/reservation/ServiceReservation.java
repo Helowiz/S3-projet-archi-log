@@ -23,14 +23,14 @@ public class ServiceReservation extends Service {
 
     @Override
     public void run() {
-        System.out.println("******** Service de Réservation " + super.getNumero() + " start ********");
+        System.out.println("******** Lancement du service de réservation " + super.getNumero() + " ********");
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(super.getSocket().getInputStream()));
             PrintWriter out = new PrintWriter(super.getSocket().getOutputStream(), true);
-            String fin = "##%******** Déconnexion du service de reservation " + super.getNumero() + " ********";
+            String fin = "##%******** Déconnexion du service de réservation " + super.getNumero() + " ********";
             Mediatheque mediatheque = Mediatheque.getInstance();
 
-            out.println(coder("******** Connexion au service de reservation " + super.getNumero() + " ********##Saisir le numéro d'abonné : "));
+            out.println(coder("******** Connexion au service de réservation " + super.getNumero() + " ********##Saisir le numéro d'abonné : "));
             String line = in.readLine();
 
             try {
@@ -62,6 +62,6 @@ public class ServiceReservation extends Service {
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
-        System.out.println("******** Service de Réservation " + super.getNumero() + " stop ********");
+        System.out.println("******** Arrêt du service de réservation " + super.getNumero() + " ********");
     }
 }

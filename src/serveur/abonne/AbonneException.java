@@ -1,16 +1,15 @@
 package serveur.abonne;
 
 public class AbonneException extends Exception{
+    int numAb;
 
-    int abonne;
-
-    public AbonneException(int ab) {
-        this.abonne = ab;
+    public AbonneException(int numAb) {
+        this.numAb = numAb;
     }
 
     @Override
     public String toString() {
-        return "%L'abonné(e) <<" + abonne + ">> n'existe pas";
+        return "%L'abonné(e) <<" + numAb + ">> n'existe pas";
     }
 }
 

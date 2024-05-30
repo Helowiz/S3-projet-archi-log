@@ -24,7 +24,7 @@ public class ServiceEmprunt extends Service {
 
     @Override
     public void run() {
-        System.out.println("******** Service de Emprunt " + super.getNumero() + " start ********");
+        System.out.println("******** Lancement du service d'emprunt " + super.getNumero() + " ********");
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(super.getSocket().getInputStream()));
             PrintWriter out = new PrintWriter(super.getSocket().getOutputStream(), true);
@@ -62,6 +62,6 @@ public class ServiceEmprunt extends Service {
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
-        System.out.println("******** Service de Emprunt " + super.getNumero() + " stop ********");
+        System.out.println("******** Arrêt du service d'emprunt " + super.getNumero() + " ********");
     }
 }

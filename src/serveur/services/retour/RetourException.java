@@ -1,13 +1,14 @@
 package serveur.services.retour;
 
 public class RetourException extends Exception {
-    int document;
+    int numDoc;
 
-    public RetourException(int doc) {
-        this.document = doc;
+    public RetourException(int numDoc) {
+        this.numDoc = numDoc;
     }
+
     @Override
     public String toString() {
-        return "Le document <<" + document + ">> ne peut pas être retourné";
+        return "Le document <<" + numDoc + ">> ne peut pas être retourné";
     }
 }
