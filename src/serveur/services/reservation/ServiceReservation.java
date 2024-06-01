@@ -8,14 +8,18 @@ import serveur.mediatheque.Mediatheque;
 import serveur.documents.Document;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
 import static java.lang.System.err;
+import static java.lang.System.out;
 import static serveur.bttp2.Codage.coder;
 
 public class ServiceReservation extends Service {
+
+    final String fin = "##%******** Déconnexion du service de réservation " + super.getNumero() + " ********";
 
     public ServiceReservation(Socket socket) {
         super(socket);
@@ -23,22 +27,20 @@ public class ServiceReservation extends Service {
 
     @Override
     public void run() {
-        System.out.println("******** Lancement du service de réservation " + super.getNumero() + " ********");
+        out.println("******** Lancement du service de réservation " + super.getNumero() + " ********");
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(super.getSocket().getInputStream()));
             PrintWriter out = new PrintWriter(super.getSocket().getOutputStream(), true);
-            String fin = "##%******** Déconnexion du service de réservation " + super.getNumero() + " ********";
             Mediatheque mediatheque = Mediatheque.getInstance();
-
             out.println(coder("******** Connexion au service de réservation " + super.getNumero() + " ********##Saisir le numéro d'abonné : "));
             String line = in.readLine();
 
             try {
-                Abonne abonne = mediatheque.getUnAbonneParNumero(Integer.parseInt(line));
+                Abonne abonne = mediatheque.getUnAbonneParNumero(StringToInt(line, out));
                 out.println("Réservation " + super.getNumero() + " <-- Saisir le numéro du document :");
                 line = in.readLine();
                 try {
-                    Document document = mediatheque.getUnDocumentParNumero(Integer.parseInt(line));
+                    Document document = mediatheque.getUnDocumentParNumero(StringToInt(line, out));
                     synchronized (document){
                         try {
                             out.println(coder("Réservation " + super.getNumero() + " --> Le document <<" + line + ">> est réservé" + fin));
@@ -49,7 +51,10 @@ public class ServiceReservation extends Service {
                     }
                 } catch (DocumentException e) {
                     out.println("Réservation " + super.getNumero() + " <-- " + e.toString() + fin);
+                } catch (NumberFormatException e){
+                    out.println(e.getMessage() + fin);
                 }
+
             } catch (AbonneException e){
                 out.println("Réservation " + super.getNumero() + " <-- " + e.toString() + fin);
             }
@@ -62,6 +67,16 @@ public class ServiceReservation extends Service {
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
-        System.out.println("******** Arrêt du service de réservation " + super.getNumero() + " ********");
+        out.println("******** Arrêt du service de réservation " + super.getNumero() + " ********");
     }
+    private int StringToInt(String line, PrintWriter out) {
+        int numero = 0;
+        try {
+            numero = Integer.parseInt(line);
+        } catch (NumberFormatException e) {
+            out.println("Réservation " + super.getNumero() + " <-- " + e.getMessage() + fin);
+        }
+        return numero;
+    }
+
 }

@@ -21,24 +21,25 @@ public class ServiceRetour extends Service {
         super(socket);
     }
 
+    final String fin = "##%******** Déconnexion du service de retour " + super.getNumero() + " ********";
+
     @Override
     public void run() {
         System.out.println("******** Lancement du service de retour " + super.getNumero() + " ********");
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(super.getSocket().getInputStream()));
             PrintWriter out = new PrintWriter(super.getSocket().getOutputStream(), true);
-            String fin = "##%******** Déconnexion du service de retour " + super.getNumero() + " ********";
             Mediatheque mediatheque = Mediatheque.getInstance();
 
             out.println("******** Connexion au service de retour " + super.getNumero() + " ********##Retour " + super.getNumero() + " <-- Saisir le numéro du document :");
             String line = in.readLine();
 
             try {
-                Document document = mediatheque.getUnDocumentParNumero(Integer.parseInt(line));
+                Document document = mediatheque.getUnDocumentParNumero(StringToInt(line,out));
                 synchronized (document){
                     document.retour();
                     GestionBD.sauvegardeBD(document,null);
-                    out.println(coder("Retour " + super.getNumero() + " --> Le document <<" + line + ">> est réservé" + fin));
+                    out.println(coder("Retour " + super.getNumero() + " --> Le document <<" + line + ">> est retourne" + fin));
                 }
             } catch (DocumentException e) {
                 out.println(coder("Retour " + super.getNumero() + " <--" + e + fin));
@@ -55,5 +56,15 @@ public class ServiceRetour extends Service {
         super.finalize();
         System.out.println("******** Arrêt du service de retour " + super.getNumero() + " ********");
 
+    }
+
+    private int StringToInt(String line, PrintWriter out) {
+        int numero = 0;
+        try {
+            numero = Integer.parseInt(line);
+        } catch (NumberFormatException e) {
+            out.println("Retour " + super.getNumero() + " <-- " + e.getMessage() + fin);
+        }
+        return numero;
     }
 }

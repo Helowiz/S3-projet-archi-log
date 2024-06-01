@@ -64,7 +64,7 @@ public class DVD implements Document {
     }
 
     public void retour() throws RetourException {
-        if(this.statut == Statuts.EMPRUNT){
+        if(this.statut != Statuts.EMPRUNT){
             throw new RetourException(this.numero);
         }
         synchronized (this){

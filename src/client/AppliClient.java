@@ -29,13 +29,21 @@ public class AppliClient {
             int cmp = 0;
             while (port == 0) {
                 Scanner sc = new Scanner(System.in);
+                int numeroPort = 0;
                 System.out.println("Saisir le numéro correspondant au service");
                 System.out.print("Les différents services disponibles :\n" +
                         "Réservation : 1\n" +
                         "Emprunt : 2\n" +
                         "Retour : 3\n");
                 System.out.print("-> ");
-                switch (sc.nextInt()) {
+                try{
+                    numeroPort = sc.nextInt();
+                }
+                catch(Exception e){
+                    System.out.println("La valeur rentrée n'est pas du type voulu");
+                    continue;
+                }
+                switch (numeroPort) {
                     case 1:
                         port = PORT_SERVICE_RESERVATION;
                         break;
