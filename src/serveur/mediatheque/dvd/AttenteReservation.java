@@ -1,6 +1,6 @@
-package serveur.services.reservation;
+package serveur.mediatheque.dvd;
 
-import serveur.documents.Document;
+import serveur.mediatheque.document.Document;
 import serveur.services.retour.RetourException;
 
 import java.util.TimerTask;
@@ -14,7 +14,6 @@ public class AttenteReservation extends TimerTask {
 
     @Override
     public void run() {
-        System.out.println("tâche");
         try {
             doc.retour();
         } catch (RetourException e) {

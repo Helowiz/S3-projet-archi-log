@@ -1,8 +1,8 @@
 package serveur.services.retour;
 
 import bserveur.Service;
-import serveur.documents.Document;
-import serveur.documents.DocumentException;
+import serveur.mediatheque.document.Document;
+import serveur.mediatheque.document.DocumentException;
 import serveur.mediatheque.GestionBD;
 import serveur.mediatheque.Mediatheque;
 
@@ -35,10 +35,10 @@ public class ServiceRetour extends Service {
             String line = in.readLine();
 
             try {
-                Document IDocument = mediatheque.getUnDocumentParNumero(StringToInt(line,out));
-                synchronized (IDocument){
-                    IDocument.retour();
-                    GestionBD.sauvegardeBD(IDocument,null);
+                Document document = mediatheque.getUnDocumentParNumero(StringToInt(line,out));
+                synchronized (document){
+                    document.retour();
+                    GestionBD.sauvegardeBD(document,null);
                     out.println(coder("Retour " + super.getNumero() + " --> Le document <<" + line + ">> est retourne" + fin));
                 }
             } catch (DocumentException e) {

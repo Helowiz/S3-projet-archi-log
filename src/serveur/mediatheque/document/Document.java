@@ -1,4 +1,4 @@
-package serveur.documents;
+package serveur.mediatheque.document;
 
 import serveur.abonne.Abonne;
 import serveur.services.emprunt.EmpruntException;

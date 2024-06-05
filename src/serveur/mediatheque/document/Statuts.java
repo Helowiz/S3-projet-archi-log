@@ -1,4 +1,4 @@
-package serveur.documents;
+package serveur.mediatheque.document;
 
 public enum Statuts {
     RESERVATION,

@@ -3,15 +3,14 @@ package serveur.services.reservation;
 import bserveur.Service;
 import serveur.abonne.Abonne;
 import serveur.abonne.AbonneException;
-import serveur.documents.DocumentException;
+import serveur.mediatheque.document.DocumentException;
 import serveur.mediatheque.Mediatheque;
-import serveur.documents.Document;
+import serveur.mediatheque.document.Document;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Timer;
 
 import static java.lang.System.err;
 import static java.lang.System.out;

@@ -2,8 +2,8 @@ package serveur.mediatheque;
 
 import serveur.abonne.Abonne;
 import serveur.abonne.AbonneException;
-import serveur.documents.Document;
-import serveur.documents.DocumentException;
+import serveur.mediatheque.document.Document;
+import serveur.mediatheque.document.DocumentException;
 
 import java.util.HashMap;
 import java.util.Map;

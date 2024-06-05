@@ -3,8 +3,8 @@ package serveur.services.emprunt;
 import bserveur.Service;
 import serveur.abonne.Abonne;
 import serveur.abonne.AbonneException;
-import serveur.documents.Document;
-import serveur.documents.DocumentException;
+import serveur.mediatheque.document.Document;
+import serveur.mediatheque.document.DocumentException;
 import serveur.mediatheque.GestionBD;
 import serveur.mediatheque.Mediatheque;
 
@@ -40,10 +40,10 @@ public class ServiceEmprunt extends Service {
                 out.println("Emprunt " + super.getNumero() + " <-- Saisir le numéro du document :");
                 line = in.readLine();
                 try {
-                    Document IDocument = mediatheque.getUnDocumentParNumero(StringToInt(line, out));
-                    synchronized (IDocument){
-                        IDocument.emprunt(abonne);
-                        GestionBD.sauvegardeBD(IDocument,abonne);
+                    Document document = mediatheque.getUnDocumentParNumero(StringToInt(line, out));
+                    synchronized (document){
+                        document.emprunt(abonne);
+                        GestionBD.sauvegardeBD(document,abonne);
                         out.println(coder("Emprunt " + super.getNumero() + " --> Le document <<" + line + ">> est emprunté" + fin));
                     }
                 } catch (DocumentException e) {

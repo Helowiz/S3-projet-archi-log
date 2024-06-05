@@ -1,4 +1,4 @@
-package serveur.documents;
+package serveur.mediatheque.document;
 
 public class DocumentException extends Exception{
     int numDoc;

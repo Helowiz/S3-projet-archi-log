@@ -10,7 +10,7 @@ import java.util.Scanner;
 import static serveur.bttp2.Codage.coder;
 import static serveur.bttp2.Codage.decoder;
 
-public class AppliClient2 {
+public class AppliClientTest {
     private static int PORT_SERVICE_RESERVATION = 3000;
     private static int PORT_SERVICE_EMPRUNT = 4000;
     private static int PORT_SERVICE_RETOUR = 5000;
@@ -20,18 +20,27 @@ public class AppliClient2 {
 
         String line = "";
         Socket socket = null;
+        
         while (!line.trim().equalsIgnoreCase("exit")){
             int port = 0;
             int cmp = 0;
             while (port == 0) {
                 Scanner sc = new Scanner(System.in);
+                int numeroPort = 0;
                 System.out.println("Saisir le numéro correspondant au service");
                 System.out.print("Les différents services disponibles :\n" +
                         "Réservation : 1\n" +
                         "Emprunt : 2\n" +
                         "Retour : 3\n");
                 System.out.print("-> ");
-                switch (sc.nextInt()) {
+                try{
+                    numeroPort = sc.nextInt();
+                }
+                catch(Exception e){
+                    System.out.println("La valeur rentrée n'est pas du type voulu");
+                    continue;
+                }
+                switch (numeroPort) {
                     case 1:
                         port = PORT_SERVICE_RESERVATION;
                         break;

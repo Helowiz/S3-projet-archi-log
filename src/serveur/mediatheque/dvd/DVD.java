@@ -1,8 +1,9 @@
-package serveur.documents;
+package serveur.mediatheque.dvd;
 
 import serveur.abonne.Abonne;
+import serveur.mediatheque.document.Document;
+import serveur.mediatheque.document.Statuts;
 import serveur.services.emprunt.EmpruntException;
-import serveur.services.reservation.AttenteReservation;
 import serveur.services.reservation.ReservationException;
 import serveur.services.retour.RetourException;
 
@@ -38,7 +39,9 @@ public class DVD implements Document {
     }
 
     public void emprunt(Abonne ab) throws EmpruntException {
-        this.attente.cancel();
+        if (this.attente != null){
+            this.attente.cancel();
+        }
         if((this.statut == Statuts.RESERVATION && this.ab == ab || this.statut == Statuts.DISPONIBLE) || (this.adulte && !ab.estAdult())){
             synchronized (this){
                 this.statut = Statuts.EMPRUNT;

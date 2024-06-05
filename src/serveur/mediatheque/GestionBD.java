@@ -2,9 +2,9 @@ package serveur.mediatheque;
 
 import serveur.abonne.Abonne;
 import serveur.abonne.AbonneException;
-import serveur.documents.DVD;
-import serveur.documents.Document;
-import serveur.documents.Statuts;
+import serveur.mediatheque.dvd.DVD;
+import serveur.mediatheque.document.Document;
+import serveur.mediatheque.document.Statuts;
 
 import java.sql.*;
 import java.util.HashMap;
