@@ -2,8 +2,11 @@ package serveur.documents;
 
 import serveur.abonne.Abonne;
 import serveur.services.emprunt.EmpruntException;
+import serveur.services.reservation.AttenteReservation;
 import serveur.services.reservation.ReservationException;
 import serveur.services.retour.RetourException;
+
+import java.util.Timer;
 
 public class DVD implements Document {
     private final int numero;
@@ -11,6 +14,8 @@ public class DVD implements Document {
     private final boolean adulte;
     private Abonne ab;
     private Statuts statut;
+    private Timer attente;
+    private long tempsAttente = 10000; // 109800000 1H30
 
     public DVD(int numero, String titre, boolean adulte, Abonne ab, Statuts statut) {
         this.numero = numero;
@@ -20,37 +25,21 @@ public class DVD implements Document {
         this.statut = statut;
     }
 
-    public int numero() {
-        return numero;
-    }
-
     public void reservation(Abonne ab) throws ReservationException {
-        if(this.statut == Statuts.RESERVATION || this.statut == Statuts.EMPRUNT){
+        if((this.adulte && !ab.estAdult()) || this.statut != Statuts.DISPONIBLE){
             throw new ReservationException(this.numero);
         }
-
-        synchronized (this){
-
+        synchronized (this) {
             this.statut = Statuts.RESERVATION;
             this.ab = ab;
-
-            while(this.statut == Statuts.RESERVATION){
-                try {
-                    System.out.println("début de l'attente");
-                    this.wait(100000); //10sec pour l'instant
-                    System.out.println("fin de l'attente");
-                } catch (InterruptedException e) {}
-                try {
-                    this.retour();
-                    throw new ReservationException(this.numero);
-                } catch (RetourException e) {}
-            }
         }
+        this.attente = new Timer();
+        this.attente.schedule(new AttenteReservation(this), this.tempsAttente);
     }
 
     public void emprunt(Abonne ab) throws EmpruntException {
-
-        if(this.statut == Statuts.RESERVATION && this.ab == ab || this.statut == Statuts.DISPONIBLE){
+        this.attente.cancel();
+        if((this.statut == Statuts.RESERVATION && this.ab == ab || this.statut == Statuts.DISPONIBLE) || (this.adulte && !ab.estAdult())){
             synchronized (this){
                 this.statut = Statuts.EMPRUNT;
                 if (this.ab == null) {
@@ -64,7 +53,7 @@ public class DVD implements Document {
     }
 
     public void retour() throws RetourException {
-        if(this.statut != Statuts.EMPRUNT){
+        if(this.statut == Statuts.DISPONIBLE){
             throw new RetourException(this.numero);
         }
         synchronized (this){
@@ -72,5 +61,10 @@ public class DVD implements Document {
             this.ab = null;
             this.notifyAll();
         }
+    }
+
+    @Override
+    public int numero() {
+        return numero;
     }
 }

@@ -35,10 +35,10 @@ public class ServiceRetour extends Service {
             String line = in.readLine();
 
             try {
-                Document document = mediatheque.getUnDocumentParNumero(StringToInt(line,out));
-                synchronized (document){
-                    document.retour();
-                    GestionBD.sauvegardeBD(document,null);
+                Document IDocument = mediatheque.getUnDocumentParNumero(StringToInt(line,out));
+                synchronized (IDocument){
+                    IDocument.retour();
+                    GestionBD.sauvegardeBD(IDocument,null);
                     out.println(coder("Retour " + super.getNumero() + " --> Le document <<" + line + ">> est retourne" + fin));
                 }
             } catch (DocumentException e) {

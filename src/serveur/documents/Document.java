@@ -6,7 +6,6 @@ import serveur.services.reservation.ReservationException;
 import serveur.services.retour.RetourException;
 
 public interface Document {
-    int numero();
 
     /* pre ni réservé ni emprunté */
     void reservation(Abonne abonne) throws ReservationException;
@@ -16,4 +15,5 @@ public interface Document {
 
     /* retour d’un document ou annulation d‘une réservation */
     void retour() throws RetourException;
+    int numero();
 }

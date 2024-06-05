@@ -40,11 +40,11 @@ public class ServiceEmprunt extends Service {
                 out.println("Emprunt " + super.getNumero() + " <-- Saisir le numéro du document :");
                 line = in.readLine();
                 try {
-                    Document document = mediatheque.getUnDocumentParNumero(StringToInt(line, out));
-                    synchronized (document){
-                        document.emprunt(abonne);
-                        GestionBD.sauvegardeBD(document,abonne);
-                        out.println(coder("Réservation " + super.getNumero() + " --> Le document <<" + line + ">> est réservé" + fin));
+                    Document IDocument = mediatheque.getUnDocumentParNumero(StringToInt(line, out));
+                    synchronized (IDocument){
+                        IDocument.emprunt(abonne);
+                        GestionBD.sauvegardeBD(IDocument,abonne);
+                        out.println(coder("Emprunt " + super.getNumero() + " --> Le document <<" + line + ">> est emprunté" + fin));
                     }
                 } catch (DocumentException e) {
                     out.println(coder("Emprunt " + super.getNumero() + " <--" + e + fin));

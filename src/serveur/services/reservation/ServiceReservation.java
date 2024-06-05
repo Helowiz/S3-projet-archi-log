@@ -8,10 +8,10 @@ import serveur.mediatheque.Mediatheque;
 import serveur.documents.Document;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Timer;
 
 import static java.lang.System.err;
 import static java.lang.System.out;
@@ -43,8 +43,8 @@ public class ServiceReservation extends Service {
                     Document document = mediatheque.getUnDocumentParNumero(StringToInt(line, out));
                     synchronized (document){
                         try {
-                            out.println(coder("Réservation " + super.getNumero() + " --> Le document <<" + line + ">> est réservé" + fin));
                             document.reservation(abonne);
+                            out.println(coder("Réservation " + super.getNumero() + " --> Le document <<" + line + ">> est réservé" + fin));
                         } catch (ReservationException e) {
                             out.println(coder("Réservation " + super.getNumero() + " <-- " + e.toString() + fin));
                         }
@@ -78,5 +78,4 @@ public class ServiceReservation extends Service {
         }
         return numero;
     }
-
 }
