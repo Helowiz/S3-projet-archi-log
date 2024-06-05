@@ -39,7 +39,7 @@ public class ServiceRetour extends Service {
                 synchronized (document){
                     document.retour();
                     GestionBD.sauvegardeBD(document,null);
-                    out.println(coder("Retour " + super.getNumero() + " --> Le document <<" + line + ">> est retourne" + fin));
+                    out.println(coder("Retour " + super.getNumero() + " --> Le document <<" + line + ">> est retourné" + fin));
                 }
             } catch (DocumentException e) {
                 out.println(coder("Retour " + super.getNumero() + " <--" + e + fin));

@@ -37,7 +37,7 @@ public final class GestionBD {
             Mediatheque.getInstance().setAbonnes(abonnes);
 
             Statement reqDVD = connect.createStatement();
-            ResultSet resDVD = reqDVD.executeQuery("SELECT * FROM DVD");
+            ResultSet resDVD = reqDVD.executeQuery("SELECT NumDoc, Titre, Adulte, Emprunteur FROM Document, DVD WHERE NumDoc = NumDocDVD");
             Document doc;
             Map<Integer, Document> documents = new HashMap<>();
             while(resDVD.next()) {
@@ -76,7 +76,7 @@ public final class GestionBD {
         try {
             Connection connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/mediatheque", "root", "mariadb");
 
-            String sql = "UPDATE DVD SET Emprunteur = ? WHERE NumDVD = ?;";
+            String sql = "UPDATE Document SET Emprunteur = ? WHERE NumDoc = ?";
             PreparedStatement reqSauv = connect.prepareStatement(sql);
             if(ab == null){
                 reqSauv.setNull(1, Types.NULL);
