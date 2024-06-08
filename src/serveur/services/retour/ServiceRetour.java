@@ -57,14 +57,4 @@ public class ServiceRetour extends Service {
         System.out.println("******** Arrêt du service de retour " + super.getNumero() + " ********");
 
     }
-
-    private int StringToInt(String line, PrintWriter out) {
-        int numero = 0;
-        try {
-            numero = Integer.parseInt(line);
-        } catch (NumberFormatException e) {
-            out.println("Retour " + super.getNumero() + " <-- " + e.getMessage() + fin);
-        }
-        return numero;
-    }
 }

@@ -66,15 +66,6 @@ public class ServiceReservation extends Service {
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
-        out.println("******** Arrêt du service de réservation " + super.getNumero() + " ********");
-    }
-    private int StringToInt(String line, PrintWriter out) {
-        int numero = 0;
-        try {
-            numero = Integer.parseInt(line);
-        } catch (NumberFormatException e) {
-            out.println("Réservation " + super.getNumero() + " <-- " + e.getMessage() + fin);
-        }
-        return numero;
+        System.out.println("******** Arrêt du service de réservation " + numero + " ********");
     }
 }

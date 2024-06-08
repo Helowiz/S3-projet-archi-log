@@ -16,7 +16,7 @@ public class DVD implements Document {
     private Abonne ab;
     private Statuts statut;
     private Timer attente;
-    private long tempsAttente = 10000; // 109800000 1H30
+    private long tempsAttente =  109800000; // 1H30
 
     public DVD(int numero, String titre, boolean adulte, Abonne ab, Statuts statut) {
         this.numero = numero;
@@ -42,7 +42,8 @@ public class DVD implements Document {
         if (this.attente != null){
             this.attente.cancel();
         }
-        if((this.statut == Statuts.RESERVATION && this.ab == ab || this.statut == Statuts.DISPONIBLE) || (this.adulte && !ab.estAdult())){
+        if (this.adulte && !ab.estAdult()) {throw new EmpruntException(this.numero);}
+        if((this.statut == Statuts.RESERVATION && this.ab == ab) || this.statut == Statuts.DISPONIBLE){
             synchronized (this){
                 this.statut = Statuts.EMPRUNT;
                 if (this.ab == null) {

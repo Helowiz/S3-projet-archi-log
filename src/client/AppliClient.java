@@ -18,7 +18,7 @@ public class AppliClient {
         Socket socket = null;
         int port = Integer.parseInt(args[0]);
 
-        while (!line.trim().equalsIgnoreCase("exit")){ //equivalent true
+        while (true){
 
             int cmp = 0;
 
@@ -44,7 +44,8 @@ public class AppliClient {
                     ++cmp;
                 }
             } catch (IOException e) {
-                System.err.println("Fin du service" + e);
+                System.err.println("Fin du service " + e);
+                break;
             }
         }
         try {

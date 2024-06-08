@@ -18,7 +18,7 @@ import static serveur.bttp2.Codage.coder;
 
 public class ServiceEmprunt extends Service {
 
-    final String fin = "##%******** Déconnexion du service d'emprunt " + super.getNumero() + " ********";
+    final String fin = "##%******** Déconnexion du service d'emprunt " + super.numero + " ********";
 
     public ServiceEmprunt(Socket socket) {
         super(socket);
@@ -64,15 +64,5 @@ public class ServiceEmprunt extends Service {
     protected void finalize() throws Throwable {
         super.finalize();
         System.out.println("******** Arrêt du service d'emprunt " + super.getNumero() + " ********");
-    }
-
-    private int StringToInt(String line, PrintWriter out) {
-        int numero = 0;
-        try {
-            numero = Integer.parseInt(line);
-        } catch (NumberFormatException e) {
-            out.println("Emprunt " + super.getNumero() + " <-- " + e.getMessage() + fin);
-        }
-        return numero;
     }
 }
